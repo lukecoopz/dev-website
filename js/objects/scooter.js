@@ -23,8 +23,11 @@ export function createScooter(scene, onLoadComplete) {
   // Load GLTF model
   const loader = new GLTFLoader();
 
+  // Load from GitHub Releases for better performance and smaller repo size
+  const MODEL_URL = "https://github.com/lukecoopz/dev-website/releases/download/v1.0.0/vespa_primavera_sprint/scene.gltf";
+
   loader.load(
-    "vespa_primavera_sprint/scene.gltf",
+    MODEL_URL,
     (gltf) => {
       const model = gltf.scene;
 

@@ -4,7 +4,9 @@ dist
 .DS_Store
 *.log
 
-# Keep assets directory structure but not all files
-!assets/
-!assets/models/
+# 3D model assets (hosted on GitHub Releases)
+vespa_primavera_sprint/
 
+# Archive files
+*.tar.gz
+*.zip
