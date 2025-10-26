@@ -99,13 +99,22 @@ git clone https://github.com/lukecoopz/dev-website.git
 cd dev-website
 ```
 
-2. Install dependencies:
+2. Download the 3D model assets:
+
+Go to the [latest release](https://github.com/lukecoopz/dev-website/releases/latest) and download `vespa-model.zip`, then extract it in the project root:
+
+```bash
+# The zip file should extract to create: vespa_primavera_sprint/
+unzip vespa-model.zip
+```
+
+3. Install dependencies:
 
 ```bash
 npm install
 ```
 
-3. Run the development server:
+4. Run the development server:
 
 ```bash
 npm start
@@ -113,7 +122,7 @@ npm start
 nx serve
 ```
 
-4. Open your browser to `http://localhost:4200`
+5. Open your browser to `http://localhost:4200`
 
 ## 🎮 How to Use
 
