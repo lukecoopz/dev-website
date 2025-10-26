@@ -48,8 +48,6 @@ function createSun(scene) {
   const sunGeometry = new THREE.SphereGeometry(2, 16, 16);
   const sunMaterial = new THREE.MeshBasicMaterial({
     color: 0xffeb3b,
-    emissive: 0xffeb3b,
-    emissiveIntensity: 0.3,
   });
   const sun = new THREE.Mesh(sunGeometry, sunMaterial);
   sun.position.set(20, 15, 10);

@@ -64,21 +64,48 @@ export function createScooter(scene, onLoadComplete) {
         throw new Error("Could not find scene.gltf in the zip file");
       }
 
-      // Create a custom loader manager to handle the extracted files
-      const manager = new THREE.LoadingManager();
-      manager.setURLModifier((url) => {
-        // Convert relative paths to our blob URLs
-        const fileName = url.split("/").pop();
-        const matchingPath = Object.keys(files).find((path) =>
-          path.endsWith(fileName)
-        );
-        return matchingPath ? files[matchingPath] : url;
-      });
+      // Fetch the GLTF JSON and modify URIs to use blob URLs
+      return fetch(files[gltfPath])
+        .then((response) => response.json())
+        .then((gltfJson) => {
+          // Replace buffer URIs with blob URLs
+          if (gltfJson.buffers) {
+            gltfJson.buffers.forEach((buffer) => {
+              if (buffer.uri) {
+                const bufferPath = Object.keys(files).find((path) =>
+                  path.endsWith(buffer.uri)
+                );
+                if (bufferPath) {
+                  buffer.uri = files[bufferPath];
+                }
+              }
+            });
+          }
 
-      const gltfLoader = new GLTFLoader(manager);
+          // Replace image URIs with blob URLs
+          if (gltfJson.images) {
+            gltfJson.images.forEach((image) => {
+              if (image.uri) {
+                const imagePath = Object.keys(files).find((path) =>
+                  path.endsWith(image.uri.split("/").pop())
+                );
+                if (imagePath) {
+                  image.uri = files[imagePath];
+                }
+              }
+            });
+          }
 
-      gltfLoader.load(
-        files[gltfPath],
+          // Convert modified JSON back to blob
+          const gltfBlob = new Blob([JSON.stringify(gltfJson)], {
+            type: "application/json",
+          });
+          const gltfBlobUrl = URL.createObjectURL(gltfBlob);
+
+          const gltfLoader = new GLTFLoader();
+
+          gltfLoader.load(
+            gltfBlobUrl,
         (gltf) => {
           const model = gltf.scene;
 
@@ -164,18 +191,21 @@ export function createScooter(scene, onLoadComplete) {
           if (onLoadComplete) {
             onLoadComplete();
           }
-        },
-        (progress) => {
-          const percent = (progress.loaded / progress.total) * 100;
-          console.log(`Loading Vespa: ${percent.toFixed(0)}%`);
-        },
+         },
+         (progress) => {
+           if (progress.total > 0) {
+             const percent = (progress.loaded / progress.total) * 100;
+             console.log(`Loading Vespa: ${percent.toFixed(0)}%`);
+           }
+         },
         (error) => {
           console.error("Error loading Vespa model:", error);
           if (onLoadComplete) {
             onLoadComplete();
           }
-        }
-      );
+         }
+       );
+        });
     })
     .catch((error) => {
       console.error("Error downloading or extracting model:", error);
