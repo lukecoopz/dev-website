@@ -1,0 +1,23 @@
+{
+  "name": "portfolio",
+  "$schema": "./node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": ".",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "http-server . -p 4200 -o -c-1",
+        "cwd": "."
+      }
+    },
+    "preview": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "http-server . -p 8080 -o",
+        "cwd": "."
+      }
+    }
+  },
+  "tags": []
+}

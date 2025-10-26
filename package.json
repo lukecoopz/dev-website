@@ -1,0 +1,16 @@
+{
+  "name": "luke-portfolio",
+  "version": "1.0.0",
+  "description": "Luke Cooper's Interactive 3D Portfolio",
+  "type": "module",
+  "scripts": {
+    "start": "nx serve",
+    "serve": "nx serve",
+    "dev": "nx serve",
+    "preview": "nx preview"
+  },
+  "devDependencies": {
+    "nx": "^19.0.0",
+    "http-server": "^14.1.1"
+  }
+}

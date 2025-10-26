@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luke Cooper - Interactive Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="loading-screen">
+      <div class="loading-content">
+        <h1>Luke Cooper</h1>
+        <p>Loading your interactive portfolio...</p>
+        <div class="loading-bar">
+          <div class="loading-progress"></div>
+        </div>
+      </div>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <!-- UI Overlays -->
+    <div id="ui-overlay">
+      <div id="instructions">
+        <h2>Welcome to Luke's Portfolio!</h2>
+        <p>Use WASD or Arrow Keys to drive the scooter around</p>
+        <p>Click on different zones to learn more about Luke's experience</p>
+        <button id="start-button">Start Exploring</button>
+      </div>
+
+      <div id="minimap">
+        <div class="minimap-content">
+          <h3>Portfolio Map</h3>
+          <div class="waypoints">
+            <div class="waypoint" data-zone="experience">💼 Experience</div>
+            <div class="waypoint" data-zone="skills">🛠️ Skills</div>
+            <div class="waypoint" data-zone="projects">🚀 Projects</div>
+            <div class="waypoint" data-zone="education">🎓 Education</div>
+            <div class="waypoint" data-zone="contact">📞 Contact</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Information Modals -->
+    <div id="modal-overlay" class="hidden">
+      <div id="modal-content">
+        <button id="close-modal">&times;</button>
+        <div id="modal-body"></div>
+      </div>
+    </div>
+
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <!-- Import Map for ES6 modules -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js",
+          "three/examples/jsm/loaders/GLTFLoader.js": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/loaders/GLTFLoader.js"
+        }
+      }
+    </script>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

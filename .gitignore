@@ -1,0 +1,10 @@
+node_modules
+.nx
+dist
+.DS_Store
+*.log
+
+# Keep assets directory structure but not all files
+!assets/
+!assets/models/
+
