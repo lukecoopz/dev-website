@@ -101,11 +101,11 @@ cd dev-website
 
 2. Download the 3D model assets:
 
-Go to the [latest release](https://github.com/lukecoopz/dev-website/releases/latest) and download `vespa-model.zip`, then extract it in the project root:
+Go to the [latest release](https://github.com/lukecoopz/dev-website/releases/latest) and download `vespa_primavera_sprint.zip`, then extract it in the project root:
 
 ```bash
 # The zip file should extract to create: vespa_primavera_sprint/
-unzip vespa-model.zip
+unzip vespa_primavera_sprint.zip
 ```
 
 3. Install dependencies:
