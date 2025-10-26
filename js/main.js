@@ -28,6 +28,9 @@ const MAX_ZOOM = 12;
 const ZOOM_SPEED = 0.5;
 
 function init() {
+  // Update loading text
+  updateLoadingText("Setting up scene...");
+  
   // Setup scene
   const sceneSetup = setupScene();
   scene = sceneSetup.scene;
@@ -35,10 +38,12 @@ function init() {
   renderer = sceneSetup.renderer;
 
   // Create environment
+  updateLoadingText("Creating environment...");
   const { collidableObjects } = createEnvironment(scene);
 
-  // Create scooter
-  scooter = createScooter(scene);
+  // Create scooter with callback to hide loading screen when ready
+  updateLoadingText("Loading 3D Vespa model...");
+  scooter = createScooter(scene, onModelLoaded);
 
   // Initialize controls and managers
   keyboardControls = new KeyboardControls();
@@ -60,14 +65,26 @@ function init() {
   // Setup mouse wheel zoom
   setupMouseWheelZoom();
 
-  // Hide loading screen
+  // Start animation loop
+  animate();
+}
+
+// Update loading screen text
+function updateLoadingText(text) {
+  const loadingText = document.getElementById("loading-text");
+  if (loadingText) {
+    loadingText.textContent = text;
+  }
+}
+
+// Called when the 3D model finishes loading
+function onModelLoaded() {
+  console.log("Vespa model loaded successfully!");
+  updateLoadingText("Almost ready...");
   hideLoadingScreen();
   setTimeout(() => {
     isLoaded = true;
-  }, 3500);
-
-  // Start animation loop
-  animate();
+  }, 500);
 }
 
 function animate() {
