@@ -48,14 +48,7 @@ export class ModalManager {
       case "skills":
         content = `
           <h2>🛠️ Technical Skills</h2>
-          <h3>Proficient:</h3>
-          <p>${cvData.skills.proficient.join(" • ")}</p>
-          
-          <h3>Intermediate:</h3>
-          <p>${cvData.skills.intermediate.join(" • ")}</p>
-          
-          <h3>Testing & Automation:</h3>
-          <p>${cvData.skills.testing.join(" • ")}</p>
+          <p>${cvData.skills.join(" • ")}</p>
         `;
         break;
 

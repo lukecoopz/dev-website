@@ -140,6 +140,19 @@ body {
     pointer-events: all;
 }
 
+/* CV Download Panel */
+#cv-download {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    pointer-events: all;
+}
+
 .minimap-content h3 {
     margin-bottom: 1rem;
     color: #4facfe;
@@ -169,6 +182,37 @@ body {
 .waypoint.active {
     background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
     color: white;
+}
+
+/* CV Download Styles */
+.cv-download-content h3 {
+    margin-bottom: 1rem;
+    color: #4facfe;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.cv-download-btn {
+    display: block;
+    background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+}
+
+.cv-download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5);
+}
+
+.cv-download-btn:active {
+    transform: translateY(0);
 }
 
 /* Modal Styles */
@@ -264,13 +308,25 @@ body {
         padding: 0.8rem;
     }
     
-    .minimap-content h3 {
+    #cv-download {
+        bottom: 10px;
+        right: 10px;
+        padding: 0.8rem;
+    }
+    
+    .minimap-content h3,
+    .cv-download-content h3 {
         font-size: 1rem;
     }
     
     .waypoint {
         font-size: 0.8rem;
         padding: 6px 10px;
+    }
+    
+    .cv-download-btn {
+        font-size: 0.8rem;
+        padding: 8px 16px;
     }
     
     #modal-content {

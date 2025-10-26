@@ -4,9 +4,6 @@ dist
 .DS_Store
 *.log
 
-# 3D model assets (hosted on GitHub Releases)
-vespa_primavera_sprint/
-
-# Archive files
+# Archive files (keep the originals out)
 *.tar.gz
 *.zip
