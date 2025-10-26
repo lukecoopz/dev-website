@@ -23,10 +23,57 @@ export function createScooter(scene, onLoadComplete) {
   // Load GLTF model
   const loader = new GLTFLoader();
 
-  // Model files should be in vespa_primavera_sprint/ folder
-  // Download from: https://github.com/lukecoopz/dev-website/releases/latest
-  loader.load(
-    "vespa_primavera_sprint/scene.gltf",
+  // Load model from GitHub Releases
+  const releaseUrl = "https://github.com/lukecoopz/dev-website/releases/download/v1.0.1/vespa_primavera_sprint.zip";
+  
+  console.log("Downloading Vespa model from GitHub Releases...");
+  
+  fetch(releaseUrl)
+    .then(response => response.arrayBuffer())
+    .then(arrayBuffer => JSZip.loadAsync(arrayBuffer))
+    .then(zip => {
+      console.log("Extracting model files...");
+      
+      // Create object URLs for the files
+      const filePromises = [];
+      const files = {};
+      
+      // Extract all files from the zip
+      zip.forEach((relativePath, file) => {
+        if (!file.dir) {
+          filePromises.push(
+            file.async('blob').then(blob => {
+              files[relativePath] = URL.createObjectURL(blob);
+            })
+          );
+        }
+      });
+      
+      return Promise.all(filePromises).then(() => files);
+    })
+    .then(files => {
+      console.log("Loading GLTF model...");
+      
+      // Find the main GLTF file
+      const gltfPath = Object.keys(files).find(path => path.endsWith('scene.gltf'));
+      
+      if (!gltfPath) {
+        throw new Error("Could not find scene.gltf in the zip file");
+      }
+      
+      // Create a custom loader manager to handle the extracted files
+      const manager = new THREE.LoadingManager();
+      manager.setURLModifier((url) => {
+        // Convert relative paths to our blob URLs
+        const fileName = url.split('/').pop();
+        const matchingPath = Object.keys(files).find(path => path.endsWith(fileName));
+        return matchingPath ? files[matchingPath] : url;
+      });
+      
+      const gltfLoader = new GLTFLoader(manager);
+      
+      gltfLoader.load(
+        files[gltfPath],
     (gltf) => {
       const model = gltf.scene;
 
@@ -124,6 +171,13 @@ export function createScooter(scene, onLoadComplete) {
       }
     }
   );
+    })
+    .catch(error => {
+      console.error("Error downloading or extracting model:", error);
+      if (onLoadComplete) {
+        onLoadComplete();
+      }
+    });
 
   return scooter;
 }
