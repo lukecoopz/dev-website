@@ -5,6 +5,7 @@ An interactive 3D portfolio website where you can drive a Vespa scooter through 
 ## ✨ Features
 
 ### 🚗 Vespa Scooter Simulation
+
 - **Realistic GLTF 3D model** with detailed animations
 - **Wheel rotation** synchronized with movement speed
 - **Steering animations** (handlebars and front wheel turn realistically)
@@ -13,6 +14,7 @@ An interactive 3D portfolio website where you can drive a Vespa scooter through 
 - **Boost mode** (toggle with Shift key for 2.5x speed)
 
 ### 📹 Dynamic Camera System
+
 - **Mouse wheel zoom** to adjust camera distance
 - **First-person mode** when zoomed in close
 - **Third-person mode** with smooth camera lag when zoomed out
@@ -20,6 +22,7 @@ An interactive 3D portfolio website where you can drive a Vespa scooter through 
 - **Automatic scroll disable** when modals are open
 
 ### 🗺️ Interactive CV Zones
+
 - **4 interactive zones**: Experience, Education, Skills, and Contact
 - **Modal popups** with detailed information
 - **Waypoint navigation** - click map to auto-navigate to zones
@@ -27,6 +30,7 @@ An interactive 3D portfolio website where you can drive a Vespa scooter through 
 - **Smooth animations** when navigating between zones
 
 ### 🎮 Controls & Navigation
+
 - **WASD / Arrow Keys** - Drive the scooter
 - **Shift** - Toggle boost mode
 - **R** - Reset to starting position
@@ -34,6 +38,7 @@ An interactive 3D portfolio website where you can drive a Vespa scooter through 
 - **Map Waypoints** - Click to navigate automatically
 
 ### 🌳 Environment
+
 - **Collision detection** with boundaries and obstacles
 - **Decorative trees** and scenery
 - **Particle effects** for zone markers
@@ -81,23 +86,27 @@ Luke-dev-website/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js (v14 or higher)
 - npm or yarn
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/lukecoopz/dev-website.git
 cd dev-website
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Run the development server:
+
 ```bash
 npm start
 # or
@@ -115,40 +124,8 @@ nx serve
 5. **Zoom Camera**: Scroll mouse wheel for different perspectives
 6. **Reset**: Press R to return to the starting position
 
-## 🎨 Customization
-
-To add your own CV content, edit `js/data/cvData.js`:
-
-```javascript
-export const cvData = {
-  experience: [
-    {
-      role: "Your Role",
-      company: "Company Name",
-      period: "2020 - Present",
-      description: "What you did...",
-      achievements: ["Achievement 1", "Achievement 2"]
-    }
-  ],
-  // ... more sections
-};
-```
-
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
 ## 🙏 Acknowledgments
 
 - **Vespa 3D Model**: [Vespa Primavera Sprint](https://sketchfab.com/3d-models/vespa-primavera-sprint-f64830bc08cb4ed396515de9b5509be4) from Sketchfab
 - **Three.js**: Amazing 3D library
 - **Inspiration**: Interactive portfolio websites and 3D web experiences
-
-## 📧 Contact
-
-Feel free to reach out if you have questions or want to collaborate!
-
----
-
-**Made with ❤️ and Three.js**
-
