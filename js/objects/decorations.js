@@ -1,4 +1,6 @@
 // Decorative elements (trees, etc.)
+import * as THREE from "three";
+
 export function createDecorations(scene) {
   const collidableObjects = [];
 

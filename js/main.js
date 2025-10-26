@@ -1,4 +1,5 @@
 // Main entry point
+import * as THREE from "three";
 import { setupScene, setupWindowResize } from "./scene/setup.js";
 import {
   createScooter,

@@ -1,4 +1,6 @@
 // Zone creation and management
+import * as THREE from "three";
+
 export const ZONE_POSITIONS = {
   experience: { x: -20, z: -20, color: 0xff6b6b },
   skills: { x: 20, z: -20, color: 0x4ecdc4 },

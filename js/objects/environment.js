@@ -1,4 +1,5 @@
 // Environment creation (ground, zones, decorations)
+import * as THREE from "three";
 import { createZones } from "./zones.js";
 import { createDecorations } from "./decorations.js";
 

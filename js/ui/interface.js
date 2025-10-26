@@ -1,4 +1,6 @@
 // UI interface setup
+import * as THREE from "three";
+
 export function setupUI(navigation, modalManager, scooter, scene, camera) {
   // Start button
   document.getElementById("start-button")?.addEventListener("click", () => {

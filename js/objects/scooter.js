@@ -1,4 +1,5 @@
 // Scooter creation using GLTF model
+import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 export function createScooter(scene, onLoadComplete) {
@@ -106,105 +107,105 @@ export function createScooter(scene, onLoadComplete) {
 
           gltfLoader.load(
             gltfBlobUrl,
-        (gltf) => {
-          const model = gltf.scene;
+            (gltf) => {
+              const model = gltf.scene;
 
-          // Apply scale and rotation FIRST
-          model.scale.set(1.5, 1.5, 1.5);
-          model.rotation.y = Math.PI / 2; // Rotate 90 degrees
+              // Apply scale and rotation FIRST
+              model.scale.set(1.5, 1.5, 1.5);
+              model.rotation.y = Math.PI / 2; // Rotate 90 degrees
 
-          // Center the model horizontally
-          model.updateMatrixWorld(true);
-          const box = new THREE.Box3().setFromObject(model);
-          const center = box.getCenter(new THREE.Vector3());
+              // Center the model horizontally
+              model.updateMatrixWorld(true);
+              const box = new THREE.Box3().setFromObject(model);
+              const center = box.getCenter(new THREE.Vector3());
 
-          model.position.x = -center.x;
-          model.position.z = -center.z;
-          model.position.y = -0.4;
+              model.position.x = -center.x;
+              model.position.z = -center.z;
+              model.position.y = -0.4;
 
-          // Enable shadows and detect animatable parts
-          let wheelRear = null;
-          let wheelFront = null;
+              // Enable shadows and detect animatable parts
+              let wheelRear = null;
+              let wheelFront = null;
 
-          model.traverse((child) => {
-            if (child.isMesh || child.isObject3D) {
-              if (child.isMesh) {
-                child.castShadow = true;
-                child.receiveShadow = true;
-              }
-
-              const name = child.name.toLowerCase();
-
-              // Detect wheels
-              if (name === "wheel rear" || name === "wheel_rear_30") {
-                wheelRear = child;
-              }
-
-              if (name.startsWith("bone_") && !wheelFront) {
-                let hasWheelChild = false;
-                child.traverse((c) => {
-                  if (c.name.toLowerCase().includes("wheel front")) {
-                    hasWheelChild = true;
+              model.traverse((child) => {
+                if (child.isMesh || child.isObject3D) {
+                  if (child.isMesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
                   }
-                });
-                if (hasWheelChild) {
-                  wheelFront = child;
+
+                  const name = child.name.toLowerCase();
+
+                  // Detect wheels
+                  if (name === "wheel rear" || name === "wheel_rear_30") {
+                    wheelRear = child;
+                  }
+
+                  if (name.startsWith("bone_") && !wheelFront) {
+                    let hasWheelChild = false;
+                    child.traverse((c) => {
+                      if (c.name.toLowerCase().includes("wheel front")) {
+                        hasWheelChild = true;
+                      }
+                    });
+                    if (hasWheelChild) {
+                      wheelFront = child;
+                    }
+                  }
+
+                  // Detect handlebars
+                  if (name.includes("handle") && !scooter.handlebars) {
+                    let handleGroup = child.parent;
+                    while (
+                      handleGroup &&
+                      !handleGroup.name.toLowerCase().includes("handle")
+                    ) {
+                      handleGroup = handleGroup.parent;
+                    }
+                    scooter.handlebars = handleGroup || child.parent || child;
+                  }
+
+                  // Detect steering column
+                  if (name.includes("steering") && !scooter.steering) {
+                    scooter.steering = child;
+                  }
+
+                  // Detect kickstand
+                  if (
+                    (name.includes("leg_1") || name.includes("rear_leg")) &&
+                    !scooter.kickstand
+                  ) {
+                    scooter.kickstand = child;
+                  }
                 }
+              });
+
+              // Assign found wheels
+              if (wheelRear) scooter.wheels.push(wheelRear);
+              if (wheelFront) {
+                scooter.wheels.push(wheelFront);
+                scooter.frontWheel = wheelFront;
               }
 
-              // Detect handlebars
-              if (name.includes("handle") && !scooter.handlebars) {
-                let handleGroup = child.parent;
-                while (
-                  handleGroup &&
-                  !handleGroup.name.toLowerCase().includes("handle")
-                ) {
-                  handleGroup = handleGroup.parent;
-                }
-                scooter.handlebars = handleGroup || child.parent || child;
-              }
+              scooter.add(model);
 
-              // Detect steering column
-              if (name.includes("steering") && !scooter.steering) {
-                scooter.steering = child;
+              if (onLoadComplete) {
+                onLoadComplete();
               }
-
-              // Detect kickstand
-              if (
-                (name.includes("leg_1") || name.includes("rear_leg")) &&
-                !scooter.kickstand
-              ) {
-                scooter.kickstand = child;
+            },
+            (progress) => {
+              if (progress.total > 0) {
+                const percent = (progress.loaded / progress.total) * 100;
+                console.log(`Loading Vespa: ${percent.toFixed(0)}%`);
+              }
+            },
+            (error) => {
+              console.error("Error loading Vespa model:", error);
+              if (onLoadComplete) {
+                onLoadComplete();
               }
             }
-          });
-
-          // Assign found wheels
-          if (wheelRear) scooter.wheels.push(wheelRear);
-          if (wheelFront) {
-            scooter.wheels.push(wheelFront);
-            scooter.frontWheel = wheelFront;
-          }
-
-          scooter.add(model);
-
-          if (onLoadComplete) {
-            onLoadComplete();
-          }
-         },
-         (progress) => {
-           if (progress.total > 0) {
-             const percent = (progress.loaded / progress.total) * 100;
-             console.log(`Loading Vespa: ${percent.toFixed(0)}%`);
-           }
-         },
-        (error) => {
-          console.error("Error loading Vespa model:", error);
-          if (onLoadComplete) {
-            onLoadComplete();
-          }
-         }
-       );
+          );
         });
     })
     .catch((error) => {
