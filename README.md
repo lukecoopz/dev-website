@@ -2,6 +2,8 @@
 
 An interactive 3D portfolio website where you can drive a Vespa scooter through a virtual world to explore my CV content. Built with Three.js and vanilla JavaScript.
 
+**🌐 Live Site:** [portfolio.lukecooper.org](https://portfolio.lukecooper.org)
+
 ## ✨ Features
 
 ### 🚗 Vespa Scooter Simulation
@@ -23,9 +25,11 @@ An interactive 3D portfolio website where you can drive a Vespa scooter through 
 
 ### 🗺️ Interactive CV Zones
 
-- **4 interactive zones**: Experience, Education, Skills, and Contact
+- **5 interactive zones**: Experience, Skills, Projects, Education, and Contact
 - **Modal popups** with detailed information
+- **Auto-close modals** when leaving a zone
 - **Waypoint navigation** - click map to auto-navigate to zones
+- **Smart highlighting** - waypoints only highlight when relevant
 - **Visit tracking** to prevent duplicate modal displays
 - **Smooth animations** when navigating between zones
 
@@ -35,6 +39,7 @@ An interactive 3D portfolio website where you can drive a Vespa scooter through 
 - **Shift** - Toggle boost mode
 - **R** - Reset to starting position
 - **Mouse Wheel** - Zoom camera in/out
+- **ESC / X Button** - Close modal
 - **Map Waypoints** - Click to navigate automatically
 
 ### 🌳 Environment
@@ -99,22 +104,13 @@ git clone https://github.com/lukecoopz/dev-website.git
 cd dev-website
 ```
 
-2. Download the 3D model assets:
-
-Go to the [latest release](https://github.com/lukecoopz/dev-website/releases/latest) and download `vespa_primavera_sprint.zip`, then extract it in the project root:
-
-```bash
-# The zip file should extract to create: vespa_primavera_sprint/
-unzip vespa_primavera_sprint.zip
-```
-
-3. Install dependencies:
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-4. Run the development server:
+3. Run the development server:
 
 ```bash
 npm start
@@ -122,7 +118,9 @@ npm start
 nx serve
 ```
 
-5. Open your browser to `http://localhost:4200`
+4. Open your browser to `http://localhost:4200`
+
+**Note:** The 3D Vespa model files are included in the repository under `vespa_primavera_sprint/`, so no additional downloads are needed!
 
 ## 🎮 How to Use
 

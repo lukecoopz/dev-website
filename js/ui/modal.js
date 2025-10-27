@@ -137,7 +137,7 @@ export class ModalManager {
   closeModal() {
     document.getElementById("modal-overlay")?.classList.add("hidden");
     this.modalOpen = false;
-    
+
     // Clear active waypoint highlight when modal closes
     document.querySelectorAll(".waypoint").forEach((wp) => {
       wp.classList.remove("active");

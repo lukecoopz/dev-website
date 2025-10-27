@@ -77,7 +77,7 @@ export class CollisionDetector {
 
       if (distance <= zone.radius) {
         isInAnyZone = true;
-        
+
         if (this.modalManager.getCurrentZone() !== zoneName) {
           this.modalManager.setCurrentZone(zoneName);
 
