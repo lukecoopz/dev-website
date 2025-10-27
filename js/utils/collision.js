@@ -67,6 +67,7 @@ export class CollisionDetector {
     const scooterPos = this.scooter.position;
     const isNavigating = this.navigation.isNavigating;
     const targetZone = this.navigation.getTargetZone();
+    let isInAnyZone = false;
 
     Object.keys(zonePositions).forEach((zoneName) => {
       const zone = zonePositions[zoneName];
@@ -75,6 +76,8 @@ export class CollisionDetector {
       );
 
       if (distance <= zone.radius) {
+        isInAnyZone = true;
+        
         if (this.modalManager.getCurrentZone() !== zoneName) {
           this.modalManager.setCurrentZone(zoneName);
 
@@ -101,9 +104,21 @@ export class CollisionDetector {
           }
         }
       } else {
-        // Left the zone
-        this.modalManager.clearCurrentZone(zoneName);
+        // Left the zone - close modal if it's open for this zone
+        if (this.modalManager.getCurrentZone() === zoneName) {
+          this.modalManager.clearCurrentZone(zoneName);
+          if (this.modalManager.isModalOpen()) {
+            this.modalManager.closeModal();
+          }
+        }
       }
     });
+
+    // If not in any zone, clear the active waypoint highlight
+    if (!isInAnyZone && !this.modalManager.isModalOpen()) {
+      document.querySelectorAll(".waypoint").forEach((wp) => {
+        wp.classList.remove("active");
+      });
+    }
   }
 }
